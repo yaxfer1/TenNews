@@ -1,0 +1,45 @@
+.form {
+    max-width: 320px;
+    width: 100%;
+}
+
+.form label {
+    display: block;
+    font-size: 15px;
+}
+
+.form-error, .form small {
+    color: red;
+    font-size: 15px;
+    margin-top: -12px;
+    display: block;
+}
+
+.form input {
+    background: #ffffff;
+    border: none;
+    display: block;
+    line-height: 2;
+    font-size: 16px;
+    width: 100%;
+    padding: 0 8px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.form input.error {
+    border: 4px solid #0c0000;
+}
+
+.form .btn {
+    background-color: white;
+    color: black;
+    border: 2px solid #000000;
+    margin-bottom: 40px;
+    margin-top: 20px;
+}
+
+.form .btn:hover {
+    background-color: #0d6efd;
+    color: white;
+}

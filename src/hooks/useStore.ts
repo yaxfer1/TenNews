@@ -15,6 +15,8 @@ const initialState: State = {
     newMessage: '',
     showModal: false,
     editedText: '',
+    email: '',
+    password: ''
 
 }
 
@@ -119,7 +121,17 @@ function reducer (state: State, action: Action) {
         }
 
     }
-
+    if (type === 'SET_EMAIL'){
+        return{
+            ...state,
+            email: action.payload
+        }
+    }   if (type === 'SET_PASSWORD'){
+        return{
+            ...state,
+            password: action.payload
+        }
+    }
 
     return state
 
@@ -138,6 +150,8 @@ export function useStore () {
         aimessages,
         editedText,
         showModal,
+        email,
+        password,
     }, dispatch] = useReducer(reducer, initialState)
     const setResult = (payload: string) => {
         dispatch({ type: 'GET_RESULT', payload })
@@ -179,6 +193,13 @@ export function useStore () {
         dispatch({ type: 'SET_SHOWMODAL', payload })
     }
 
+    const setEmail = (payload: string) => {
+        dispatch({ type: 'SET_EMAIL', payload })
+    }
+
+    const setPassword = (payload: string) => {
+        dispatch({ type: 'SET_PASSWORD', payload })
+    }
 
 
     return{
@@ -193,6 +214,8 @@ export function useStore () {
         newMessage,
         editedText,
         showModal,
+        email,
+        password,
         setResult,
         changeText1,
         changeText2,
@@ -203,7 +226,10 @@ export function useStore () {
         setNewMessage,
         setAIMessage,
         setShowModal,
-        setEditedText
+        setEditedText,
+        setEmail,
+        setPassword,
+
 
     }
 }

@@ -23,7 +23,7 @@ export const ChatBox = ({messages, aimessages, newMessage, onClick, onChange, lo
 
     const combinedMessages = messages.map((message, index) => ({ text: message, sender: "user", index }))
         .concat(aimessages.map((message, index) => ({ text: message, sender: "AI", index })))
-        .sort((a, b) => a.index - b.index); // Ordena los mensajes por el índice
+        .sort((a, b) => a.index - b.index);
 
     return (
         <Container fluid>
