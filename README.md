@@ -4,4 +4,6 @@ This application is built with React; and the main functionalities of the app wo
 
 However, functionalities associated with login and user status are working with JavaScript and managed with local states.
 
+It interacts with the Back-End, developed with python(flask) to: retrieve and insert information of MySQL database; retrieve context of Pinecone RAG database; AI Chat functionalities and text generation to generate news articles. 
+
 Demo of the App: https://youtu.be/dkCk5yI9gic
