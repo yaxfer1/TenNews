@@ -6,4 +6,4 @@ However, functionalities associated with login and user status are working with 
 
 It interacts with the Back-End, developed with python(flask) to: retrieve and insert information of MySQL database; retrieve context of Pinecone RAG database; AI Chat functionalities and text generation to generate news articles. 
 
-Demo of the App: https://youtu.be/dkCk5yI9gic
+Demo of the App: https://youtu.be/jWaSDKs_t7o
