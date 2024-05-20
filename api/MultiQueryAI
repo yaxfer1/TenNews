@@ -1,0 +1,142 @@
+
+
+import pinecone
+from langchain.embeddings.openai import OpenAIEmbeddings
+import os
+import langchain
+langchain.verbose = True
+
+os.environ["PINECONE_API_KEY"] = "38e3fd50-58a1-46ae-8a1f-d62aa004931c" or getpass("Pinecone API key: ")
+# console.anthropic.com
+# platform.openai.com
+os.environ["OPENAI_API_KEY"] = "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" or getpass("OpenAI API key: ")
+OPENAI_API_KEY = "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"
+from langchain.embeddings.openai import OpenAIEmbeddings
+
+embed = OpenAIEmbeddings(model="text-embedding-3-small")
+
+from pinecone import Pinecone
+
+# configure client
+pc = Pinecone(api_key=os.environ["PINECONE_API_KEY"])
+
+from pinecone import ServerlessSpec
+
+spec = ServerlessSpec(
+    cloud="aws", region="us-east-1"
+)
+
+text_field = "text"
+import time
+
+index_name = "ragas-evaluation"
+
+
+# connect to index
+index = pc.Index(index_name)
+time.sleep(1)
+
+from langchain.vectorstores import Pinecone
+vectorstore = Pinecone(
+    index, embed.embed_query, text_field
+)
+from langchain.chat_models import ChatOpenAI
+from langchain.chains import RetrievalQA
+
+# completion llm
+llm = ChatOpenAI(
+    openai_api_key=OPENAI_API_KEY,
+    model_name='gpt-4-turbo',
+    temperature=0.0
+)
+
+"""qa = RetrievalQA.from_chain_type(
+    llm=llm,
+    chain_type="stuff",
+    retriever=vectorstore.as_retriever()
+)"""
+
+from langchain.retrievers.multi_query import MultiQueryRetriever
+
+retriever = MultiQueryRetriever.from_llm(
+    retriever=vectorstore.as_retriever(), llm=llm
+)
+import logging
+
+logging.basicConfig()
+logging.getLogger("langchain.retrievers.multi_query").setLevel(logging.INFO)
+
+"""docs = retriever.get_relevant_documents(question)
+len(docs)"""
+
+from langchain.prompts import PromptTemplate
+from langchain.chains import LLMChain
+
+QA_PROMPT = PromptTemplate(
+    input_variables=["query", "contexts"],
+    template="""You are a helpful assistant who helps me to create news articles about mainly AI and NLP topic. If you have 
+    not enough context to generate a reliable news article say "I don't know".
+    
+    Contexts:
+    {contexts}
+
+    Question: {query}""",
+)
+
+QA_PROMPTINI = PromptTemplate(
+    input_variables=["query", "contexts", "queryini"],
+    template="""{queryini}.
+    
+    Contexts:
+    {contexts}
+
+    Question: {query}""",
+)
+
+# Chain
+qa_chain = LLMChain(llm=llm, prompt=QA_PROMPT)
+qa_chainini = LLMChain(llm=llm, prompt=QA_PROMPTINI)
+"""
+out = qa_chain(
+    inputs={
+        "query": question,
+        "contexts": "\n---\n".join([d.page_content for d in docs])
+    }
+)"""
+"""print(out["text"])"""
+
+from langchain.chains import TransformChain
+
+def retrieval_transform(inputs: dict) -> dict:
+    docs = retriever.get_relevant_documents(query=inputs["question"])
+    docs = [d.page_content for d in docs]
+    docs_dict = {
+        "query": inputs["question"],
+        "contexts": "\n---\n".join(docs)
+    }
+    return docs_dict
+
+retrieval_chain = TransformChain(
+    input_variables=["question"],
+    output_variables=["query", "contexts"],
+    transform=retrieval_transform
+)
+
+from langchain.chains import SequentialChain
+
+rag_chain = SequentialChain(
+    chains=[retrieval_chain, qa_chain],
+    input_variables=["question"],  # we need to name differently to output "query"
+    output_variables=["query", "contexts", "text"]
+)
+
+
+
+rag_chain_modify = SequentialChain(
+    chains=[qa_chainini],
+    input_variables=["query", "contexts", "queryini"],  # we need to name differently to output "query"
+    output_variables=["query", "contexts", "text"]
+)
+
+#out = rag_chain({"question": question})
+#print(out["text"])
