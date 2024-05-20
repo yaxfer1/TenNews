@@ -1,0 +1,113 @@
+**Title: Evaluating the Efficacy of Large Language Models in Education: Metrics and Methods**
+
+Description: As the use of Large Language Models (LLMs) in educational settings grows, understanding the metrics for their evaluation becomes crucial. This article explores the various metrics used to assess the effectiveness of LLMs in enhancing learning outcomes and instructional methodologies.
+
+By Javier Fernández, TenNewsroom
+
+---
+
+In the rapidly evolving field of educational technology, Large Language Models (LLMs) such as GPT-4 have emerged as significant tools, promising to revolutionize how students interact with educational content. However, the effectiveness of these models hinges on robust evaluation metrics that can accurately measure their impact on student learning and instructional quality. Here, we delve into the metrics that are currently shaping the evaluation of LLMs in educational contexts.
+
+### 1. Reward Scores and Performance Evaluation
+
+One of the primary metrics used to evaluate LLMs in educational settings is the reward score. This metric varies depending on the specific application but generally involves comparing the outputs of the LLM to a predefined standard or ground truth. For instance, in the WebShop environment, the reward is defined as the attribute overlapping ratio between the purchased item and the ground truth item. Similarly, in the HotPotQA environment, the reward is gauged by the F1 score grading between the agent's answer and the ground-truth answer.
+
+### 2. Recall Performance
+
+Recall performance is another critical metric, particularly in environments where retrieving the correct information is paramount. In the WebShop scenario, recall is defined as '1' if the ground truth item is retrieved by the LLM and '0' if not. This binary metric provides a straightforward method of assessing whether the LLM can successfully retrieve relevant information during a task session.
+
+### 3. Feedback Quality and Student Interaction
+
+Beyond quantitative metrics, the quality of feedback provided by LLMs is a vital aspect of their evaluation. Studies, such as those by Dai et al., have shown that LLMs like ChatGPT can generate detailed, fluent, and coherent feedback that often surpasses that of human instructors. However, the novelty and insightfulness of the feedback can sometimes be lacking, which is a critical area for future improvement.
+
+### 4. Comparative Analysis
+
+Another approach to evaluating LLMs involves comparing student performance in environments with and without LLM assistance. This method seeks to directly measure the impact of LLMs on learning outcomes by observing differences in student performance metrics such as grades, comprehension levels, and problem-solving skills.
+
+### 5. Longitudinal Studies
+
+Longitudinal studies offer a more extended analysis of LLM effectiveness, tracking the same set of students over a period to observe the long-term impacts of LLM integration into their learning process. These studies help in understanding how consistent use of LLMs influences learning curves and student engagement with course material.
+
+### 6. User Satisfaction and Ease of Use
+
+Finally, user satisfaction and the ease of deployment and use are crucial for the practical application of LLMs in educational settings. Tools like CodeHelp, which are designed to be user-friendly for both students and instructors, provide valuable data on how the usability of such technologies can affect their adoption and effectiveness.
+
+---
+
+As LLMs continue to be integrated into more diverse educational settings, from traditional classrooms to distance learning and self-paced courses, the development of nuanced and robust evaluation metrics remains critical. These metrics not only assess the current effectiveness of LLMs but also guide future enhancements, ensuring that these tools meet the evolving needs of educators and students alike.
+
+---
+
+# Prompt Parts
+
+## Context Retrieving Prompt
+
+Structural properties and dynamics of deep classifiers. optimization, generalization, and approximation in deep networks.
+
+## Prompt1
+
+You are an assistant that helps us, a newsroom (TenNewsroom) to craft a well-researched news article on AI and NLP topics, guided by the provided context. Begin by understanding the context's nuances, then proceed to construct an engaging introduction before delving into the main body of the article, addressing each aspect methodically.
+
+Approach this task step-by-step, take your time and do not skip steps:
+
+- Read all the context passed to generate the article.
+- Determine what parts are relevant for the news and combine them with your own knowledge.
+- Generate the news article with a title, a description, and a sign (Javier Fernández).
+
+If you have not enough context to generate a reliable news article, say "I don't know"'.
+
+## Contexts
+
+## Mark Liffiton, Brad Sheese, Jaromir Savelka, and Paul Denny
+plan to give instructors more ways to provide context about their courses and thus further tailor the LLM responses for their students. Additionally, we plan to explore different forms or levels of inter- vention that might be appropriate depending on the complexity of the task, the experience level of the student, or even the specific learning objectives of the course. And we see many opportunities for the tool to be more individualized, adapting to the needs of each student. For example, it could record and maintain information about each individual studentâs mastery of different topics, using that to guide the responses generated for them.
+While encouraging, this work presents only an initial exploration into the effective deployment of LLMs in computing education. For example, while students positively rated CodeHelp and the instruc- tor found it easy to use and deploy, future work should establish more robust metrics for gauging efficacy, such as measuring impact on student learning outcomes or comparing student performance in classrooms that use CodeHelp to those that do not.
+We also recognize that further work needs to be conducted with larger, more diverse populations of students. It would also be inter- esting to deploy CodeHelp in different educational settings, such as in distance learning or self-paced programming courses, to evaluate its flexibility and adaptability.
+
+Large language models | Automated learning assessment | Automated grading | Education Correspondence: [matelsky@seas.upenn.edu](mailto:matelsky@seas.upenn.edu)
+
+# Introduction
+
+## Open-ended questions â questions that require students to produce multi-word, nontrivial responses in educational en- â are a popular assessment tool vironments because they offer students the chance to explore their understanding of learning material. Such questions provide valuable insight into studentsâ grasp of complex concepts and their problem-solving ap- proaches. However, grading open-ended questions can be time-consuming, subjective, and â especially in the
+case of large class sizes â prone to attentional errors. These factors create a critical bottleneck in precision education.
+Large Language Models (LLMs) present an op- portunity to automate and promote equity in learning assessments, providing rapid valuable feedback to stu- dents while reducing the burden on instructors. We developed a tool that automatically assesses studentsâ responses to open-ended questions by evaluating their responses against a set of instructor-defined criteria. To use our tool, the instructor poses a question along with optional grading criteria. Students respond to these questions, and their answers are relayed to a server. The responses are paired with the grading cri- teria (which are not revealed to the student), forming a payload for a large language model (LLM). The LLM then generates automated feedback, suggesting areas for improvement to the student.
+
+4.2 EVALUATION METRICS
+We mainly use the reward score in each environment to evaluate the performances of LAAs. In the WebShop environment, the reward is defined as the attribute overlapping ratio between the bought item and ground truth item. In HotPotQA environment, the reward is defined as the F1 score grading between agent answer and ground-truth answer. Additionally, we develop the Recall performance for WebShop environment, which is defined as 1 if the ground truth item is retrieved and 0 if not during one task session. The Recall is reported as the average recall scores across all tasks in WebShop environment.
+
+# 4.3 LLM UTILIZATION
+
+---
+
+## students a broader range of educational opportunities. However, to fully harness the potential of LLMs in education, extensive research, and ongoing refinement are necessary.
+The evaluation of LLMs for educational assistance aims to investigate and assess their po- tential contributions to the field of education. Such evaluations can be conducted from various perspectives. According to Dai et al. [30], ChatGPT demonstrates the ability to generate detailed, fluent, and coherent feedback that surpasses that of human teachers. It can accurately assess student assignments and provide feedback on task completion, thereby assisting in the development of student skills. However, ChatGPTâs responses may lack novelty or insightful perspectives regarding teaching improvement [210]. Additionally, the study conducted by Hellas et al. [67] revealed that LLMs can successfully identify at least one actual problem in student code, although instances of misjudgment are also observed. In conclusion, the utilization of LLMs shows promise in addressing program logic issues, although challenges remain in achieving proficiency in output formatting. It is important to note that while these models can provide valuable insights, they may still generate errors similar to those made by students.
+
+## pay, billion, loans, credit, economic, fund state, bill, would, federal, house, senate, congress, law, legislation, act, states, governor, government, passed, public, committee, lawmakers, plan, fund- ing like, good, really, one, well, much, great, bit, even, little, quite, also, though, still, pretty, lot, see, get, better, would children, child, kids, parents, baby, age, young, birth, parent, pregnancy, pregnant, family, families, babies, adults, mother, old, early, mothers like, get, one, know, got, really, good, little, even, think, guy, thing, going, love, pretty, right, let, much, never, back school, students, education, schools, college, stu- dent, high, university, class, teachers, year, teacher, campus, program, learning, teaching, classes, chil- dren, grade, parents mexico, spanish, italian, spain, italy, san, mexi- can, latin, puerto, del, cuba, rico, colombia, costa, america, cuban, venezuela, juan, country
+
+## coding | Â°* fermi oa |o3 os oÂ« os 02 03 a4 05 02 02 a2 a2 roleplay os | os e4 04 03 04 03 02 03 02 a3 03 2.0 writing | 03 | oz nome a ow 02 01 02 on is knowledge] 02 | 02 02 02 03 03 noe 02 03 02 oF generic 02 | 02 02 03 04 03 02 0s 03 02 01 a2 a2 counterfactual 402] ox 02 04 04 cx 02 0: 0s 02 a3 03 âcommon-sense 02 | 02 02 a4 04 03 02 os 03 04 03 02 os Average | os | 02 02 a4 cs 04 03 os 0302 03 02 TR 138938 WAS VAS V3, 138, 138 I Qh oudGn-3 Feet
+(c) The maximum point-expanding response length.
+(d) The ratio of the maximum point-expanding re- sponse length to the normal answer length.
+odin i 60.0 math fermi 50.0 roleplay 40.0 writing knowledge soo generic wom on counterfactual eons 200 10.0 Average 65-1838 498 13 V3.3 WF 138) 138 vi hour 3 o9T* Re a aan
+
+## get, make, need, one, also, time, best, want, many, use, may, take, find, like, even, help, way, good, people, much art, museum, artist, work, artists, exhibition, paint- ing, works, gallery, arts, paintings, collection, artis- tic, drawing, new, show, contemporary, painted, artwork state, county, texas, florida, north, south, michigan, ohio, carolina, states, virginia, west, georgia, center, university, washington, colorado, iowa, arizona production, company, industry, mining, manufac- turing, gold, mine, port, supply, project, companies, factory, industrial, plant, steel, products, equip- ment, coal, goods world, countries, international, united, trade, china, states, global, country, foreign, europe, region, asia, economic, european, nations, south, india, east minister, government, said, meeting, party, presi- dent, prime, would, members, committee, council, parliament, also, general, decision, agreement, po- litical, secretary, national, commission code, use,
+
+## would, even, one, could, however, much, fact, yet, rather, far, though, many, well, might, perhaps, less, long, despite, may, time could, problem, many, may, problems, due, however, issues, issue, would, even, also, cause, result, still, time, situation, damage, impact, without gun, shooting, guns, malaysia, hunting, rifle, firearms, shot, deer, weapons, shoot, weapon, malaysian, pistol, firearm, ammunition, rmNUM, hunt, buck disney, magic, world, ray, animation, alice, walt, fairy, ride, parks, disneyland, park, animated, theme, magical, pixar, jungle, studios, orlando, characters syria, turkey, forces, iraq, military, security, attacks, attack, killed, syrian, terrorist, turkish, war, people, state, group, isis, terrorism, terrorists, government eyes, like, face, could, head, hand, back, little, looked, hands, said, around, look, body, would, voice, see, away, hair, felt building, house, room, space, built, floor, construc- tion, wall, buildings, new,
+
+Open-ended questions are a favored tool among instructors for assessing student understand- ing and encouraging critical exploration of course material. Providing feedback for such responses is a time-consuming task that can lead to over- whelmed instructors and decreased feedback qual- ity. Many instructors resort to simpler question for- mats, like multiple-choice questions, which provide immediate feedback but at the expense of person- alized and insightful comments. Here, we present a tool that uses large language models (LLMs), guided by instructor-defined criteria, to automate responses to open-ended questions. Our tool deliv- ers rapid personalized feedback, enabling students to quickly test their knowledge and identify areas for improvement. We provide open-source reference implementations both as a web application and as a Jupyter Notebook widget that can be used with instructional coding or math notebooks. With in- structor guidance, LLMs hold promise to enhance student learning outcomes and elevate instructional methodologies.
+Large language models | Automated learning assessment | Automated grading | Education Correspondence: [matelsky@seas.upenn.edu](mailto:matelsky@seas.upenn.edu)
+
+# Introduction
+
+---
+
+## 7.7 Beyond Evaluation: LLMs Enhancement Ultimately, evaluation is not the end goal but rather the starting point. Following the evaluation, there are undoubtedly conclusions to be drawn regarding performance, robustness, stability, and other factors. A proficient evaluation system should not only offer benchmark results but should also deliver an insightful analysis, recommendations, and guidance for future research and de- velopment. For instance, PromptBench [264] provides not only robustness evaluation results on adversarial prompts but also a comprehensive analysis through attention visualization, elucidating how adversarial texts can result in erroneous responses. The system further offers a word frequency analysis to identify robust and non-robust words in the test sets, thus providing prompt engineering guidance for end users. Subsequent research can leverage these findings to enhance LLMs. Another example is that Wang et al. [215] first explored the performance of large vision-language models on imbalanced (long-tailed) tasks, which demonstrates the limitation of current large models. Then, they explored different methodologies to enhance the performance on these tasks. In summary, enhancement after evaluation helps to build better LLMs and much can be done in the future.
+
+3.3 EVALUATION METRICS
+The evaluation of the instruction-following capability of LLMs is usually challenging due to the existence of multiple eligible responses to one instruction and the difficulty of reproducing human evaluations. In light of the recent advancements in automated evaluation (Dubois et al., 2023; Zheng et al., 2023; Chiang et al., 2023), which offer superior scalability and explainability than human studies, we also apply an API LLM J(Â·) (e.g., GPT-4) as the judge to evaluate Î¸S and compare it with Î¸V . In particular, we apply J(Â·) to compare the responses of Î¸S and Î¸V to each instruction z drawn from a test set D. Let F (z; Î¸V ) and F (z; Î¸S) denote the two modelsâ responses to instruction z â D, the judge outputs a score for each response and we aim to achieve a higher score on Î¸S, i.e.,
+J(F (z; Î¸S)) â¥ J(F (z; Î¸V )) (2)
+
+## Prompt 2
+
+---
+
+Date: May 17, 2024
+Craft an article explaining the metrics that allows us to evaluate llms.
