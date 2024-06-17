@@ -6,7 +6,7 @@ import { Route, Switch } from "wouter";
 import {UserContextProvider} from "./context/UserContext.jsx";
 import Login from "./pages/Login";
 // @ts-ignore
-import HomePage from "./pages/Home.tsx";
+import HomePage from "./pages/Home";
 
 import "./App.css";
 
