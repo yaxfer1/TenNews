@@ -5,11 +5,10 @@ import { Route, Switch } from "wouter";
 // @ts-ignore
 import {UserContextProvider} from "./context/UserContext.jsx";
 import Login from "./pages/Login";
-
+import HomePage from "./pages/Home.tsx";
 
 import "./App.css";
 
-const HomePage = React.lazy(() => import("./pages/Home"));
 
 export default function App() {
     return (
