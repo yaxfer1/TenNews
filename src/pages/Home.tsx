@@ -22,7 +22,7 @@ import EditableTextBox from "../components/EditableTextBox.tsx";
 import DropdownMenu from '../components/DropdownMenu.jsx';
 
 
-function Home () {
+function HomePage () {
 
 
     const{
@@ -104,12 +104,14 @@ function Home () {
     }
 
 
+
     return (
 
         <Container fluid>
             <Container>
                 <MainHeader
-                    boton={handleSetChat()}
+                    // @ts-ignore
+                    boton={handleSetChat}
                     chat={chat}
                 >
 
@@ -233,6 +235,6 @@ function Home () {
     );
 }
 
-export default Home;
+export default HomePage;
 
 

@@ -6,7 +6,7 @@ import { Route, Switch } from "wouter";
 // @ts-expect-error
 import {UserContextProvider} from "./context/UserContext.jsx";
 import Login from "./pages/Login";
-import Home from "./pages/Home";
+import HomePage from "./pages/Home";
 
 import "./App.css";
 
@@ -18,7 +18,7 @@ export default function App() {
                 <Suspense fallback={null}>
                     <section className="App-content">
                             <Switch>
-                                <Route component={Home} path="/home" />
+                                <Route component={HomePage} path="/home" />
                                 <Route component={Login} path="/" />
                             </Switch>
                     </section>
