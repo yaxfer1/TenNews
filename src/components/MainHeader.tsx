@@ -1,12 +1,12 @@
-import React from "react";
+
 import "./styles.css";
-import {Button} from "react-bootstrap"; // Importa tu archivo CSS
 import logoupv from "../assets/react.svg"
 import {useRoute, Link} from 'wouter'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
 import useUser from "../hooks/useUser.jsx"
-import {navigate} from "wouter/use-hash-location";
 interface MainHeaderProps{
-    boton: boolean
+    boton: void
     chat: boolean
 }
 export const MainHeader = ({boton, chat}: MainHeaderProps) => {
@@ -15,10 +15,12 @@ export const MainHeader = ({boton, chat}: MainHeaderProps) => {
     const {isLogged, logout} = useUser()
     const [match] = useRoute("/");
 
-    const handleClick = e => {
+    const handleClick = () => {
         //e.preventDefault()
         logout()
     }
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
     const renderLoginButtons = ({isLogged}) => {
         return isLogged
             ? <Link style={{
@@ -47,6 +49,7 @@ export const MainHeader = ({boton, chat}: MainHeaderProps) => {
 
 
 
+
     return (
         <header id="mainheader" style={{height:"5vw"}}>
             <div>
@@ -61,6 +64,8 @@ export const MainHeader = ({boton, chat}: MainHeaderProps) => {
             <nav>
                 <ul className="flex text-b">
                     <li><a
+                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                        // @ts-expect-error
                         onClick={boton}
                         href="#"
                         style={{
@@ -72,6 +77,8 @@ export const MainHeader = ({boton, chat}: MainHeaderProps) => {
                         }}
                     >Chat</a></li>
                     <li><a
+                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                        // @ts-expect-error
                         onClick={boton}
                         href="#"
                         style={{

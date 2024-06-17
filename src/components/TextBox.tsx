@@ -52,7 +52,7 @@ export const TextBox = ({ type, value, loading, onChange, showAdditionalContent,
             />
             {/* Renderiza los elementos hijos */}
             {(type === SectionType.Box1 ||  type === SectionType.Box3) && (
-                <div style={{position: 'relative', bottom: 50, right: -350}}>{children}</div>)}
+                <div style={{position: 'relative', bottom: 50, right: -340}}>{children}</div>)}
         </div>
     );
 };

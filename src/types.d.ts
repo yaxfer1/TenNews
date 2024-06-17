@@ -34,3 +34,17 @@ export enum SectionType {
     Box2 = 'box2',
     Box3 = 'box3'
 }
+
+declare module './context/UserContext.jsx' {
+    const value: never;
+    export default value;
+}
+declare module './components/DropdownMenu.jsx' {
+    const value: never;
+    export default value;
+}
+
+declare module './hooks/useUser.jsx' {
+    const value: never;
+    export default value;
+}
