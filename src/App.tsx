@@ -2,6 +2,7 @@ import React, { Suspense } from "react";
 import { Route, Switch } from "wouter";
 
 
+// @ts-ignore
 import {UserContextProvider} from "./context/UserContext.jsx";
 import Login from "./pages/Login";
 

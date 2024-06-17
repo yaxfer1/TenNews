@@ -1,4 +1,4 @@
-import React from 'react'
+//@ts-ignore
 import Login from '../components/Login/index'
 
 export default function LoginPage () {

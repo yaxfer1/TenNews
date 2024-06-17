@@ -20,6 +20,7 @@ export const getContext = async (context: string) => {
 
         return data.toString();
     } catch (error) {
+        // @ts-ignore
         console.error('Error durante la solicitud:', error.message);
         throw error;
     }

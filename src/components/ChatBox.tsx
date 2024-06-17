@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Container, InputGroup, FormControl, Button } from "react-bootstrap";
-import {postChat} from "../services/postChat.ts";
 
 import './styles.css'
 

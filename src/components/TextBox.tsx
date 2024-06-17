@@ -39,6 +39,7 @@ export const TextBox = ({ type, value, loading, onChange, showAdditionalContent,
         onChange(event.target.value);
     };
 
+    // @ts-ignore
     return (
         <div>
             <Form.Control
@@ -47,6 +48,7 @@ export const TextBox = ({ type, value, loading, onChange, showAdditionalContent,
                 cols={1000}
                 placeholder={getInitialValue({ type, loading })}
                 value={value}
+                // @ts-ignore
                 style={styles}
                 onChange={handleTextChange}
             />

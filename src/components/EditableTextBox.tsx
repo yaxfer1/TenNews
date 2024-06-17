@@ -1,7 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 
-const EditableTextBox = ({showModal, editedText, onChange, setShowModal, text, setText}) => {
+interface EditableTextBoxProps {
+    // Puedes agregar más propiedades según sea necesario
+
+    showModal: boolean,
+    editedText: string,
+    setShowModal: (value: boolean) => void,
+    onChange:(value: string) => void,
+    text: string,
+    setText: (value: string) => void,
+}
+
+const EditableTextBox = ({showModal, editedText, onChange, setShowModal, text, setText}:EditableTextBoxProps) => {
 
     const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         onChange(event.target.value)
