@@ -51,9 +51,10 @@ export const MainHeader = ({boton, chat}: MainHeaderProps) => {
 
 
     return (
-        <header id="mainheader" style={{height:"5vw"}}>
+        <header id="mainheader" style={{height:"5vw", width:"100vw"}}>
             <div>
-                <img src={logoupv} alt={"Logo UPV"}></img>
+                 <img src={logoupv} alt={"Logo UPV"}></img>
+
             </div>
             <nav className="flex w-full justify-center">
             <ul className="flex text-b">

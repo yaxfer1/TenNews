@@ -1,5 +1,5 @@
 //import { useState } from 'react'
-import '../App.css'
+import './Home.css'
 import TextBox from '../components/TextBox.tsx';
 import ResultBox from '../components/ResultBox.tsx';
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -20,6 +20,8 @@ import EditableTextBox from "../components/EditableTextBox.tsx";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 import DropdownMenu from '../components/DropdownMenu.jsx';
+import DragAndDrop from '../components/DragAndDrop.jsx';
+import {style} from "happy-dom/lib/PropertySymbol.d.ts.js";
 
 
 function HomePage () {
@@ -49,7 +51,7 @@ function HomePage () {
         setShowModal,
         setEditedText,
     }=useStore()
-
+    const [hovering, setHovering] = useState(true);
     const [showAdditionalContent, setShowAdditionalContent] = useState(false);
     const handleTextChange =  async () => {
         // Aquí puedes realizar peticiones al backend con los textos y obtener el resultado
@@ -103,19 +105,32 @@ function HomePage () {
         navigator.clipboard.writeText(result).catch(() => {})
     }
 
-
+    const handleMouseHover = () =>{
+      setHovering(true);
+    };
+    const handleMouseLeave = () =>{
+        setHovering(false);
+    };
 
     return (
 
-        <Container fluid>
-            <Container>
-                <MainHeader
+        <Container style={{margin: '0' , padding:'0', width:'100vw', height:'100vh', overflow:'hidden'}}>
+
+            <Container onMouseOver={handleMouseHover} onMouseOut={handleMouseLeave}  style={{
+                position: "absolute",
+                height: "5vw",
+                top: "0px",
+                left: "0px",
+                maxWidth:"none",
+                width: "100vw", // Fondo para identificar la zona
+                zIndex: "10000",
+            }}>
+                {hovering && (<MainHeader
                     // @ts-ignore
                     boton={handleSetChat}
                     chat={chat}
                 >
-
-                </MainHeader>
+                </MainHeader>)}
             </Container>
 
             {chat && <Container className= "containerGen" style={{marginTop: '30px', left: 0, top:50, position:"absolute", display:"flow", height:"10vw"}}>
@@ -189,6 +204,7 @@ function HomePage () {
 
                         </Stack>
                     </Col>
+
                     {showAdditionalContent && (<Col style={{float: 'left'}}>
                         <ResultBox result={result} text1={text1} text2={text2} text3={text3}/>
                         <div style={{position: 'absolute', left: 1770, top: 690, display: 'flex'}}>
@@ -217,7 +233,7 @@ function HomePage () {
                 </Row>
             </Container>}
 
-            {!chat && (<Container className="containerChat" style={{marginTop:'-60px'}}>
+            {!chat && (<Container className="containerChat" style={{marginTop:'0px', width: '100vw', height: '100vh', overflow: 'hidden'}}>
 
                             <ChatBox
                                 messages={messages}
@@ -229,6 +245,33 @@ function HomePage () {
                             >
                             </ChatBox>
 
+                    <Col style={{
+                        position: "absolute",
+                        right: "20px",
+                        top: "10vh",
+                        width: "18vw",
+                        display: "flex",
+                        flexDirection: "column",
+                        height: "100%",
+                        overflowY: "auto",
+                        zIndex: "0",
+                    }}>
+                        <DragAndDrop/>
+                    </Col>
+
+                    <Col style={{
+                        position: "absolute",
+                        left: "20px",
+                        top: "10vh",
+                        width: "18vw",
+                        display: "flex",
+                        flexDirection: "column",
+                        height: "100%",
+                        overflowY: "auto",
+                        zIndex: "0",
+                    }}>
+                        <DragAndDrop/>
+                    </Col>
             </Container>
             )}
         </Container>

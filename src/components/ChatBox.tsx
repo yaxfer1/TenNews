@@ -26,7 +26,7 @@ export const ChatBox = ({messages, aimessages, newMessage, onClick, onChange, lo
 
     return (
         <Container fluid>
-            <div style={{height: "700px", width:"1000px", overflowY: "scroll", border: "0px solid #ccc", marginBottom: "10px", marginTop:"60px"}}>
+            <div style={{position: "absolute",transform: "translateX(-50%)" ,left:"50%",height: '85vh', width:"60vw", overflowY: "scroll", border: "0px solid #ccc", marginBottom: "10px", top: "0"}}>
                 <div style={{
                     textAlign: "left",
                     marginBottom: "5px",
@@ -34,10 +34,10 @@ export const ChatBox = ({messages, aimessages, newMessage, onClick, onChange, lo
                     borderRadius: "8px",
                     backgroundColor: "#F0F0F0"
                 }}>
-                        <span style={{fontWeight: "bold", fontSize: "1.2em"}}>
+                        <span style={{fontWeight: "bold", fontSize: "0,5em"}}>
                             AI:
                         </span>
-                        <span style={{fontSize: "1.2em", marginRight: "10px", marginLeft: "10px"}}>Hi! How can I help you?</span>
+                        <span style={{fontSize: "0,5em", marginRight: "10px", marginLeft: "10px"}}>Hi! How can I help you?</span>
                 </div>
                 {combinedMessages.map((message, index) => (
                     <div key={index} style={{
@@ -47,15 +47,22 @@ export const ChatBox = ({messages, aimessages, newMessage, onClick, onChange, lo
                         borderRadius: "8px",
                         backgroundColor: message.sender === "user" ? "#D9EAF8" : "#F0F0F0"
                     }}>
-                        <span style={{ fontWeight: "bold", fontSize: "1.2em" }}>
-                            {message.sender === "user" ? "User:" : "AI:"}
-                        </span>
-                        <span style={{ fontSize: "1.2em", marginRight: "10px", marginLeft: "10px" }}>{message.text}</span>
+                    <span style={{ fontWeight: "bold", fontSize: "1.2em" }}>
+                        {message.sender === "user" ? "User:" : "AI:"}
+                    </span>
+                                    <span style={{
+                                        fontSize: "1.2em",
+                                        marginRight: "10px",
+                                        marginLeft: "10px",
+                                        whiteSpace: "pre-wrap" // Aquí se habilita el formato
+                                    }}>
+                        {message.text}
+                    </span>
                     </div>
                 ))}
 
             </div>
-            <InputGroup className="mb-3" >
+            <InputGroup className="mb-3" style={{position: "absolute", top:"90vh",transform: "translateX(-50%)" ,left:"50%",height: '4vh', width:"50vw", border: "0px solid #ccc", marginBottom: "1px", marginTop:"0px"}} >
                 <FormControl
                     placeholder="Write your message here..."
                     aria-label="Write your message here..."

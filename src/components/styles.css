@@ -5,9 +5,9 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 100vw;
     justify-content: space-between;
-    z-index: 1000;
+    z-index: 100;
     background-color: #fafafa;
 }
 
