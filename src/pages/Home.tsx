@@ -21,6 +21,7 @@ import EditableTextBox from "../components/EditableTextBox.tsx";
 // @ts-expect-error
 import DropdownMenu from '../components/DropdownMenu.jsx';
 import DragAndDrop from '../components/DragAndDrop.jsx';
+import UrlInput from '../components/UrlInput.jsx';
 import {style} from "happy-dom/lib/PropertySymbol.d.ts.js";
 
 
@@ -245,18 +246,38 @@ function HomePage () {
                             >
                             </ChatBox>
 
-                    <Col style={{
-                        position: "absolute",
-                        right: "20px",
-                        top: "10vh",
-                        width: "18vw",
-                        display: "flex",
-                        flexDirection: "column",
-                        height: "100%",
-                        overflowY: "auto",
-                        zIndex: "0",
-                    }}>
-                        <DragAndDrop/>
+                    <Col
+                        style={{
+                            position: "absolute",
+                            right: "20px",
+                            top: "10vh",
+                            width: "18vw",
+                            display: "flex",
+                            flexDirection: "column",
+                            height: "100%",
+                            overflowY: "auto",
+                            zIndex: "0",
+                        }}
+                    >
+                        <div
+                            style={{
+                                flex: "1", // Para que ocupe proporcionalmente el espacio disponible
+                                overflowY: "auto", // Para manejar contenido desbordado
+                                borderBottom: "1px solid #ccc", // Línea divisoria opcional
+                            }}
+                        >
+                            <DragAndDrop />
+                        </div>
+
+                        <div
+                            style={{
+                                flex: "1", // Ocupará el mismo espacio que el anterior
+                                overflowY: "auto", // También manejamos contenido desbordado
+                            }}
+                        >
+                            {/* Agrega aquí cualquier otro componente o contenido */}
+                            <UrlInput />
+                        </div>
                     </Col>
 
                     <Col style={{
