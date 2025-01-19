@@ -22,7 +22,7 @@ import EditableTextBox from "../components/EditableTextBox.tsx";
 import DropdownMenu from '../components/DropdownMenu.jsx';
 import DragAndDrop from '../components/DragAndDrop.jsx';
 import UrlInput from '../components/UrlInput.jsx';
-import {style} from "happy-dom/lib/PropertySymbol.d.ts.js";
+
 
 
 function HomePage () {
@@ -40,6 +40,9 @@ function HomePage () {
         newMessage,
         showModal,
         editedText,
+        chats,
+        currentChatId,
+        addChat,
         setResult,
         changeText1,
         changeText2,
@@ -47,10 +50,12 @@ function HomePage () {
         setLoad,
         setChat,
         setNewMessage,
-        setMessages,
-        setAIMessage,
+        //setMessages,
+        //setAIMessage,
         setShowModal,
         setEditedText,
+        updateChatMessages,
+        updateChatAIMessages,
     }=useStore()
     const [hovering, setHovering] = useState(true);
     const [showAdditionalContent, setShowAdditionalContent] = useState(false);
@@ -91,10 +96,11 @@ function HomePage () {
             setNewMessage("")
             // Agregar el nuevo mensaje al estado de mensajes
 
-            setMessages([...messages, mensaje])
+            updateChatMessages(currentChatId,[...messages, mensaje])
+
 
             const chatr = await postChat(mensaje);
-            setAIMessage([...aimessages, chatr])
+            updateChatAIMessages(currentChatId,[...aimessages, chatr])
             // Limpiar el campo de texto después de enviar el mensaje
 
             setLoad(false)
@@ -243,6 +249,11 @@ function HomePage () {
                                 onClick={handleSendMessage}
                                 onChange={setNewMessage}
                                 loading={loading}
+                                chats={chats}
+                                onSelectChat={currentChatId}
+                                onNewChat={addChat}
+                                updateChatMessages={updateChatMessages}
+                                updateChatAIMessages={updateChatAIMessages}
                             >
                             </ChatBox>
 
@@ -291,7 +302,7 @@ function HomePage () {
                         overflowY: "auto",
                         zIndex: "0",
                     }}>
-                        <DragAndDrop/>
+
                     </Col>
             </Container>
             )}

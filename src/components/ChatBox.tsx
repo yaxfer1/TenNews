@@ -1,84 +1,116 @@
 import React from "react";
-import { Container, InputGroup, FormControl, Button } from "react-bootstrap";
+import {
+    Container,
+    InputGroup,
+    FormControl,
+    Button,
+    Dropdown,
+    DropdownButton,
+} from "react-bootstrap";
+import "./styles.css";
 
-import './styles.css'
-
-//(e) => setNewMessage(e.target.value)
-interface ChatBoxProps {
-    // Puedes agregar más propiedades según sea necesario
-
-    messages: string[],
-    aimessages: string[],
-    newMessage: string,
-    onClick:any,
-    onChange: (value: string) => void
-    loading: boolean,
+interface Chat {
+    id: string;
+    name: string;
+    messages: string[];
+    aimessages: string[];
 }
 
-export const ChatBox = ({messages, aimessages, newMessage, onClick, onChange, loading}: ChatBoxProps) => {
+interface ChatBoxProps {
+    messages: string[];
+    aimessages: string[];
+    newMessage: string;
+    onClick: () => void;
+    onChange: (value: string) => void;
+    loading: boolean;
+    chats: Chat[];
+    onSelectChat: (id: string) => void;
+    onNewChat: () => void;
+}
+
+export const ChatBox = ({
+                            messages,
+                            aimessages,
+                            newMessage,
+                            onClick,
+                            onChange,
+                            loading,
+                            chats,
+                            onSelectChat,
+                            onNewChat,
+                        }: ChatBoxProps) => {
     const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        onChange(event.target.value)
+        onChange(event.target.value);
     };
 
-    const combinedMessages = messages.map((message, index) => ({ text: message, sender: "user", index }))
-        .concat(aimessages.map((message, index) => ({ text: message, sender: "AI", index })))
-        .sort((a, b) => a.index - b.index);
+    const handleSelectChat = (chatId: string) => {
+        setCurrentChatId(chatId);
+    };
+
+    const handleNewChat = () => {
+        const newChatId = `${Date.now()}`;
+        addChat({ id: newChatId, name: `Chat ${chats.length + 1}`, messages: [], aimessages: [] });
+        setCurrentChatId(newChatId);
+    };
+
+    const combinedMessages = [
+        ...messages.map((text, index) => ({ text, sender: "user", index })),
+        ...aimessages.map((text, index) => ({ text, sender: "AI", index })),
+    ].sort((a, b) => a.index - b.index);
 
     return (
         <Container fluid>
-            <div style={{position: "absolute",transform: "translateX(-50%)" ,left:"50%",height: '85vh', width:"60vw", overflowY: "scroll", border: "0px solid #ccc", marginBottom: "10px", top: "0"}}>
-                <div style={{
-                    textAlign: "left",
-                    marginBottom: "5px",
-                    padding: "8px",
-                    borderRadius: "8px",
-                    backgroundColor: "#F0F0F0"
-                }}>
-                        <span style={{fontWeight: "bold", fontSize: "0,5em"}}>
-                            AI:
-                        </span>
-                        <span style={{fontSize: "0,5em", marginRight: "10px", marginLeft: "10px"}}>Hi! How can I help you?</span>
+            {/* Dropdown para seleccionar chats */}
+            <DropdownButton
+                id="chat-selector"
+                title="Select Chat"
+                className="chat-dropdown"
+            >
+                {chats.map((chat) => (
+                    <Dropdown.Item key={chat.id} onClick={() => onSelectChat(chat.id)}>
+                        {chat.name}
+                    </Dropdown.Item>
+                ))}
+                <Dropdown.Divider />
+                <Dropdown.Item onClick={onNewChat}>New Chat</Dropdown.Item>
+            </DropdownButton>
+
+            {/* Lista de mensajes */}
+            <div className="messages-container">
+                <div className="message ai-message">
+                    <span className="message-sender">AI:</span>
+                    <span className="message-text">Hi! How can I help you?</span>
                 </div>
                 {combinedMessages.map((message, index) => (
-                    <div key={index} style={{
-                        textAlign: message.sender === "user" ? "right" : "left",
-                        marginBottom: "5px",
-                        padding: "8px",
-                        borderRadius: "8px",
-                        backgroundColor: message.sender === "user" ? "#D9EAF8" : "#F0F0F0"
-                    }}>
-                    <span style={{ fontWeight: "bold", fontSize: "1.2em" }}>
-                        {message.sender === "user" ? "User:" : "AI:"}
-                    </span>
-                                    <span style={{
-                                        fontSize: "1.2em",
-                                        marginRight: "10px",
-                                        marginLeft: "10px",
-                                        whiteSpace: "pre-wrap" // Aquí se habilita el formato
-                                    }}>
-                        {message.text}
-                    </span>
+                    <div
+                        key={index}
+                        className={`message ${
+                            message.sender === "user" ? "user-message" : "ai-message"
+                        }`}
+                    >
+            <span className="message-sender">
+              {message.sender === "user" ? "User:" : "AI:"}
+            </span>
+                        <span className="message-text">{message.text}</span>
                     </div>
                 ))}
-
             </div>
-            <InputGroup className="mb-3" style={{position: "absolute", top:"90vh",transform: "translateX(-50%)" ,left:"50%",height: '4vh', width:"50vw", border: "0px solid #ccc", marginBottom: "1px", marginTop:"0px"}} >
+
+            {/* Input para nuevos mensajes */}
+            <InputGroup className="message-input-group">
                 <FormControl
                     placeholder="Write your message here..."
-                    aria-label="Write your message here..."
-                    aria-describedby="basic-addon2"
                     value={newMessage}
                     onChange={handleTextChange}
                     disabled={loading}
                 />
-                <Button variant="primary" id="button-addon2" onClick={onClick} disabled={loading} style={{width:"100px"}}>
-                    {loading ? (
-                        <div className="loader-container">
-                            <div className="loader"></div>
-                        </div>
-                    ) : (
-                        "Send"
-                    )}
+                <Button
+                    variant="primary"
+                    onClick={onClick}
+                    disabled={loading}
+                    className="send-button"
+                >
+                    {loading ? <div className="loader" /> : "Send"}
                 </Button>
             </InputGroup>
         </Container>
@@ -87,3 +119,4 @@ export const ChatBox = ({messages, aimessages, newMessage, onClick, onChange, lo
 
 export default ChatBox;
 
+/* styles.css */

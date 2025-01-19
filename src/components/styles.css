@@ -7,7 +7,7 @@
     left: 0;
     width: 100vw;
     justify-content: space-between;
-    z-index: 100;
+    z-index: 1000000000000;
     background-color: #fafafa;
 }
 
@@ -64,3 +64,81 @@ nav ul li {
 
 /* Estilo para los botones al pasar el ratón */
 
+.chat-dropdown {
+    position: absolute;
+    top: 20vh;
+    left: 10%;
+    transform: translateX(-50%);
+    z-index: 1000;
+}
+
+.messages-container {
+    position: absolute;
+    top: 6rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60vw;
+    height: 70vh;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+.message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.user-message {
+    background-color: #d9eaf8;
+    text-align: right;
+}
+
+.ai-message {
+    background-color: #f0f0f0;
+    text-align: left;
+}
+
+.message-sender {
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+.message-text {
+    white-space: pre-wrap;
+}
+
+.message-input-group {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50vw;
+}
+
+.send-button {
+    width: 100px;
+}
+
+.loader {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #007bff;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

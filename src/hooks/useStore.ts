@@ -1,12 +1,11 @@
 import { useReducer} from 'react'
-import { type Action, type State } from '../types'
+import {type Action, Chat, type State} from '../types'
 
 
 const initialState: State = {
-    text1: 'You are a helpful assistant that create news articles about mainly AI and NLP topic. You are fed into a database of AI and NLP papers, so please, use the context passed to generate the news article. If you have' +
-        ' not enough context to generate a reliable news article say "I don\'t know"',
+    text1: 'You are a helpful assistant that create news articles about mainly AI and NLP topic...',
     text2: 'Here is the context',
-    text3: 'Explain in an article using a language that all the people understands how does the Transformers Architecture works.',
+    text3: 'Explain in an article...',
     loading: false,
     result: '',
     chat: false,
@@ -16,7 +15,9 @@ const initialState: State = {
     showModal: false,
     editedText: '',
     email: '',
-    password: ''
+    password: '',
+    currentChatId: 1n,
+    chats: [], // Inicializar la lista de chats como un array vacío
 
 }
 
@@ -132,7 +133,45 @@ function reducer (state: State, action: Action) {
             password: action.payload
         }
     }
+    if (type === 'ADD_CHAT'){
+        return {
+            ...state,
+            chats: [...state.chats, action.payload],
+        };
+    }
+    if (type === 'DELETE_CHAT'){
+        return {
+            ...state,
+            chats: state.chats.filter((chat) => chat.id !== action.payload),
+        }
+    }
+    if (type === 'SET_CURRENTCHATID'){
+        return {
+            ...state,
+            currentChatId: action.payload,
+        }
+    }
 
+    if (type === 'UPDATE_CHAT_MESSAGES'){
+        return {
+            ...state,
+            chats: state.chats.map((chat) =>
+                chat.id === action.payload.chatId
+                    ? { ...chat, messages: action.payload.messages }
+                    : chat
+            ),
+        }
+    }
+    if (type === 'UPDATE_CHAT_AIMESSAGES'){
+        return {
+            ...state,
+            chats: state.chats.map((chat) =>
+                chat.id === action.payload.chatId
+                    ? { ...chat, messages: action.payload.aimessages }
+                    : chat
+            ),
+        }
+    }
     return state
 
 }
@@ -152,6 +191,8 @@ export function useStore () {
         showModal,
         email,
         password,
+        chats,
+        currentChatId,
     }, dispatch] = useReducer(reducer, initialState)
     const setResult = (payload: string) => {
         dispatch({ type: 'GET_RESULT', payload })
@@ -200,7 +241,29 @@ export function useStore () {
     const setPassword = (payload: string) => {
         dispatch({ type: 'SET_PASSWORD', payload })
     }
+    const addChat = (payload: Chat) => {
+        dispatch({ type: 'ADD_CHAT', payload });
+    };
 
+// Eliminar un chat por su ID
+    const deleteChat = (payload: bigint) => {
+        dispatch({ type: 'DELETE_CHAT', payload });
+    };
+
+// Cambiar el chat actual
+    const setCurrentChatId = (payload: bigint | null) => {
+        dispatch({ type: 'SET_CURRENTCHATID', payload });
+    };
+
+// Actualizar los mensajes del usuario en un chat específico
+    const updateChatMessages = (chatId: bigint, messages: string[]) => {
+        dispatch({ type: 'UPDATE_CHAT_MESSAGES', payload: { chatId, messages } });
+    };
+
+// Actualizar los mensajes de IA en un chat específico
+    const updateChatAIMessages = (chatId: bigint, aimessages: string[]) => {
+        dispatch({ type: 'UPDATE_CHAT_AIMESSAGES', payload: { chatId, aimessages } });
+    };
 
     return{
         text1,
@@ -216,7 +279,14 @@ export function useStore () {
         showModal,
         email,
         password,
+        chats,
+        currentChatId,
+        addChat,
+        deleteChat,
         setResult,
+        setCurrentChatId,
+        updateChatMessages,
+        updateChatAIMessages,
         changeText1,
         changeText2,
         changeText3,
@@ -229,7 +299,6 @@ export function useStore () {
         setEditedText,
         setEmail,
         setPassword,
-
 
     }
 }
