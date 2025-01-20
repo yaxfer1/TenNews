@@ -251,7 +251,7 @@ export function useStore () {
     };
 
 // Cambiar el chat actual
-    const setCurrentChatId = (payload: bigint | null) => {
+    const setCurrentChatId = (payload: bigint) => {
         dispatch({ type: 'SET_CURRENTCHATID', payload });
     };
 
