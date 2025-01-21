@@ -156,7 +156,7 @@ function reducer (state: State, action: Action) {
         return {
             ...state,
             chats: state.chats.map((chat) =>
-                chat.id === action.payload.chatId
+                chat.id === action.payload.chatId // Cambiar por currentChatID
                     ? { ...chat, messages: action.payload.messages }
                     : chat
             ),
