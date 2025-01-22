@@ -56,6 +56,7 @@ function HomePage () {
         setEditedText,
         updateChatMessages,
         updateChatAIMessages,
+        setCurrentChatId,
     }=useStore()
     const [hovering, setHovering] = useState(true);
     const [showAdditionalContent, setShowAdditionalContent] = useState(false);
@@ -250,7 +251,7 @@ function HomePage () {
                                 onChange={setNewMessage}
                                 loading={loading}
                                 chats={chats}
-                                onSelectChat={currentChatId}
+                                setCurrentChatID={setCurrentChatId}
                                 onNewChat={addChat}
                                 updateChatMessages={updateChatMessages}
                                 updateChatAIMessages={updateChatAIMessages}

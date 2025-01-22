@@ -17,12 +17,21 @@ const initialState: State = {
     email: '',
     password: '',
     currentChatId: 1n,
-    chats: [], // Inicializar la lista de chats como un array vacío
+    chats: [
+        {
+            id: BigInt(1),
+            name: "Chat inicial", // Nombre del chat inicial
+            messages: [],// Ejemplo de mensaje inicial
+            aimessages: [] // Respuesta inicial de la IA
+        }
+    ], // Inicializar la lista de chats como un array vacío
 
 }
 
 function reducer (state: State, action: Action) {
+
     const { type } = action
+
     if (type === 'SET_TEXT1'){
         return{
             ...state,
@@ -156,7 +165,7 @@ function reducer (state: State, action: Action) {
         return {
             ...state,
             chats: state.chats.map((chat) =>
-                chat.id === action.payload.chatId
+                chat.id === action.payload.currentChatID
                     ? { ...chat, messages: action.payload.messages }
                     : chat
             ),
@@ -166,7 +175,7 @@ function reducer (state: State, action: Action) {
         return {
             ...state,
             chats: state.chats.map((chat) =>
-                chat.id === action.payload.chatId
+                chat.id === action.payload.currentChatID
                     ? { ...chat, messages: action.payload.aimessages }
                     : chat
             ),
@@ -256,13 +265,13 @@ export function useStore () {
     };
 
 // Actualizar los mensajes del usuario en un chat específico
-    const updateChatMessages = (chatId: bigint, messages: string[]) => {
-        dispatch({ type: 'UPDATE_CHAT_MESSAGES', payload: { chatId, messages } });
+    const updateChatMessages = (currentChatID: bigint, messages: string[]) => {
+        dispatch({ type: 'UPDATE_CHAT_MESSAGES', payload: { currentChatID, messages } });
     };
 
 // Actualizar los mensajes de IA en un chat específico
-    const updateChatAIMessages = (chatId: bigint, aimessages: string[]) => {
-        dispatch({ type: 'UPDATE_CHAT_AIMESSAGES', payload: { chatId, aimessages } });
+    const updateChatAIMessages = (currentChatID: bigint, aimessages: string[]) => {
+        dispatch({ type: 'UPDATE_CHAT_AIMESSAGES', payload: { currentChatID, aimessages } });
     };
 
     return{

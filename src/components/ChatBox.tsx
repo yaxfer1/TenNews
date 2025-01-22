@@ -8,13 +8,8 @@ import {
     DropdownButton,
 } from "react-bootstrap";
 import "./styles.css";
+import {Chat} from "../types";
 
-interface Chat {
-    id: string;
-    name: string;
-    messages: string[];
-    aimessages: string[];
-}
 
 interface ChatBoxProps {
     messages: string[];
@@ -24,8 +19,8 @@ interface ChatBoxProps {
     onChange: (value: string) => void;
     loading: boolean;
     chats: Chat[];
-    onSelectChat: (id: string) => void;
-    onNewChat: () => void;
+    setCurrentChatID: (value: bigint) => void;
+    onNewChat: (value: Chat) => void;
 }
 
 export const ChatBox = ({
@@ -36,7 +31,7 @@ export const ChatBox = ({
                             onChange,
                             loading,
                             chats,
-                            onSelectChat,
+                            setCurrentChatID,
                             onNewChat,
                         }: ChatBoxProps) => {
     const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -53,9 +48,26 @@ export const ChatBox = ({
         setCurrentChatId(newChatId);
     };
 
+    const mappedMessages = chats.flatMap(chat =>
+        chat.messages.map((text, index) => ({
+            text,
+            sender: "user",
+            chatId: chat.id,
+            index,
+        }))
+    );
+    const mappedAImessages = chats.flatMap(chat =>
+        chat.aimessages.map((text, index) => ({
+            text,
+            sender: "AI",
+            chatId: chat.id,
+            index,
+        }))
+    );
+
     const combinedMessages = [
-        ...messages.map((text, index) => ({ text, sender: "user", index })),
-        ...aimessages.map((text, index) => ({ text, sender: "AI", index })),
+        ...mappedMessages,
+        ...mappedAImessages,
     ].sort((a, b) => a.index - b.index);
 
     return (
@@ -67,7 +79,7 @@ export const ChatBox = ({
                 className="chat-dropdown"
             >
                 {chats.map((chat) => (
-                    <Dropdown.Item key={chat.id} onClick={() => onSelectChat(chat.id)}>
+                    <Dropdown.Item key={chat.id} onClick={() => setCurrentChatID(chat.id)}>
                         {chat.name}
                     </Dropdown.Item>
                 ))}
@@ -77,10 +89,6 @@ export const ChatBox = ({
 
             {/* Lista de mensajes */}
             <div className="messages-container">
-                <div className="message ai-message">
-                    <span className="message-sender">AI:</span>
-                    <span className="message-text">Hi! How can I help you?</span>
-                </div>
                 {combinedMessages.map((message, index) => (
                     <div
                         key={index}
