@@ -35,8 +35,6 @@ function HomePage () {
         result,
         loading,
         chat,
-        aimessages,
-        messages,
         newMessage,
         showModal,
         editedText,
@@ -91,17 +89,21 @@ function HomePage () {
     }
 
     const handleSendMessage = async () => {
+        console.log("boton")
         if (newMessage.trim() !== "") {
+            console.log("boton")
             setLoad(true)
             const mensaje = newMessage
+            const messages = chats.flatMap((chat) => chat.messages)
+            const aimessages = chats.flatMap((chat) => chat.aimessages)
             setNewMessage("")
             // Agregar el nuevo mensaje al estado de mensajes
 
             updateChatMessages(currentChatId,[...messages, mensaje])
 
 
-            const chatr = await postChat(mensaje);
-            updateChatAIMessages(currentChatId,[...aimessages, chatr])
+            //const chatr = await postChat(mensaje);
+            updateChatAIMessages(currentChatId,[...aimessages, "chatr"])
             // Limpiar el campo de texto después de enviar el mensaje
 
             setLoad(false)
@@ -118,6 +120,12 @@ function HomePage () {
     };
     const handleMouseLeave = () =>{
         setHovering(false);
+    };
+
+    const handleNewChat = () => {
+        const newChatId = BigInt(Math.floor(Date.now() / 1000)); // Convierte el tiempo actual en segundos a BigInt
+        addChat({ id: newChatId, name: `Chat ${chats.length + 1}`, messages: [], aimessages: [] });
+        setCurrentChatId(newChatId);
     };
 
     return (
@@ -244,15 +252,13 @@ function HomePage () {
             {!chat && (<Container className="containerChat" style={{marginTop:'0px', width: '100vw', height: '100vh', overflow: 'hidden'}}>
 
                             <ChatBox
-                                messages={messages}
-                                newMessage={newMessage}
-                                aimessages={aimessages}
                                 onClick={handleSendMessage}
-                                onChange={setNewMessage}
+                                currentChatID={currentChatId}
+                                setnewMessage={setNewMessage}
                                 loading={loading}
                                 chats={chats}
                                 setCurrentChatID={setCurrentChatId}
-                                onNewChat={addChat}
+                                onNewChat={handleNewChat}
                                 updateChatMessages={updateChatMessages}
                                 updateChatAIMessages={updateChatAIMessages}
                             >

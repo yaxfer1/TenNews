@@ -16,54 +16,54 @@ interface ChatBoxProps {
     aimessages: string[];
     newMessage: string;
     onClick: () => void;
-    onChange: (value: string) => void;
+    setnewMessage: (value: string) => void;
     loading: boolean;
     chats: Chat[];
     setCurrentChatID: (value: bigint) => void;
+    currentChatID: bigint;
     onNewChat: (value: Chat) => void;
 }
 
 export const ChatBox = ({
-                            messages,
-                            aimessages,
                             newMessage,
                             onClick,
-                            onChange,
+                            setnewMessage,
                             loading,
                             chats,
                             setCurrentChatID,
                             onNewChat,
+                            currentChatID,
                         }: ChatBoxProps) => {
     const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        onChange(event.target.value);
+        setnewMessage(event.target.value);
     };
 
-    const handleSelectChat = (chatId: string) => {
-        setCurrentChatId(chatId);
+    const handleSelectChat = (chatId: bigint) => {
+        console.log(chatId)
+        setCurrentChatID(chatId);
     };
 
-    const handleNewChat = () => {
-        const newChatId = `${Date.now()}`;
-        addChat({ id: newChatId, name: `Chat ${chats.length + 1}`, messages: [], aimessages: [] });
-        setCurrentChatId(newChatId);
-    };
+    const mappedMessages = chats
+        .filter(chat => chat.id === currentChatID) // Filtrar solo el chat seleccionado
+        .flatMap(chat =>
+            chat.messages.map((text, index) => ({
+                text,
+                sender: "user",
+                chatId: chat.id,
+                index,
+            }))
+        );
 
-    const mappedMessages = chats.flatMap(chat =>
-        chat.messages.map((text, index) => ({
-            text,
-            sender: "user",
-            chatId: chat.id,
-            index,
-        }))
-    );
-    const mappedAImessages = chats.flatMap(chat =>
-        chat.aimessages.map((text, index) => ({
-            text,
-            sender: "AI",
-            chatId: chat.id,
-            index,
-        }))
-    );
+    const mappedAImessages = chats
+        .filter(chat => chat.id === currentChatID) // Filtrar solo el chat seleccionado
+        .flatMap(chat =>
+            chat.aimessages.map((text, index) => ({
+                text,
+                sender: "AI",
+                chatId: chat.id,
+                index,
+            }))
+        );
 
     const combinedMessages = [
         ...mappedMessages,
@@ -72,20 +72,24 @@ export const ChatBox = ({
 
     return (
         <Container fluid>
-            {/* Dropdown para seleccionar chats */}
-            <DropdownButton
-                id="chat-selector"
-                title="Select Chat"
-                className="chat-dropdown"
-            >
-                {chats.map((chat) => (
-                    <Dropdown.Item key={chat.id} onClick={() => setCurrentChatID(chat.id)}>
-                        {chat.name}
-                    </Dropdown.Item>
-                ))}
-                <Dropdown.Divider />
-                <Dropdown.Item onClick={onNewChat}>New Chat</Dropdown.Item>
-            </DropdownButton>
+            {/* Lista de chats */}
+            <div className="chat-list">
+                {chats
+                    .slice()
+                    .reverse() // Invertir el orden para que el más reciente esté arriba
+                    .map((chat) => (
+                        <div
+                            key={chat.id.toString()}
+                            className="chat-item"
+                            onClick={() => handleSelectChat(chat.id)}
+                        >
+                            {chat.name}
+                        </div>
+                    ))}
+                <Button onClick={onNewChat} className="new-chat-button">
+                    New Chat
+                </Button>
+            </div>
 
             {/* Lista de mensajes */}
             <div className="messages-container">
@@ -123,6 +127,7 @@ export const ChatBox = ({
             </InputGroup>
         </Container>
     );
+
 };
 
 export default ChatBox;

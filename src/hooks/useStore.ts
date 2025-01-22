@@ -9,8 +9,6 @@ const initialState: State = {
     loading: false,
     result: '',
     chat: false,
-    messages: [],
-    aimessages: [],
     newMessage: '',
     showModal: false,
     editedText: '',
@@ -82,26 +80,6 @@ function reducer (state: State, action: Action) {
 
     }
 
-    if(type === 'SET_MESSAGES'){
-
-
-        return{
-            ...state,
-            messages: action.payload
-        }
-
-    }
-
-    if(type === 'SET_NEWMESSAGE'){
-
-
-        return{
-            ...state,
-            newMessage: action.payload
-        }
-
-    }
-
     if(type === 'SET_AIMESSAGES'){
 
 
@@ -140,6 +118,11 @@ function reducer (state: State, action: Action) {
         return{
             ...state,
             password: action.payload
+        }
+    } if (type === 'SET_NEWMESSAGE'){
+        return{
+            ...state,
+            newMessage: action.payload
         }
     }
     if (type === 'ADD_CHAT'){
@@ -193,9 +176,7 @@ export function useStore () {
         result,
         loading,
         chat,
-        messages,
         newMessage,
-        aimessages,
         editedText,
         showModal,
         email,
@@ -281,8 +262,6 @@ export function useStore () {
         result,
         loading,
         chat,
-        messages,
-        aimessages,
         newMessage,
         editedText,
         showModal,
