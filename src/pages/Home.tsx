@@ -22,7 +22,7 @@ import EditableTextBox from "../components/EditableTextBox.tsx";
 import DropdownMenu from '../components/DropdownMenu.jsx';
 import DragAndDrop from '../components/DragAndDrop.jsx';
 import UrlInput from '../components/UrlInput.jsx';
-
+import ChatList from '../components/ChatList.tsx';
 
 
 function HomePage () {
@@ -309,7 +309,11 @@ function HomePage () {
                         overflowY: "auto",
                         zIndex: "0",
                     }}>
-
+                        <ChatList
+                            chats={chats}
+                            setCurrentChatID={setCurrentChatId}
+                            onNewChat={handleNewChat}
+                        ></ChatList>
                     </Col>
             </Container>
             )}

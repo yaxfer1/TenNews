@@ -73,23 +73,6 @@ export const ChatBox = ({
     return (
         <Container fluid>
             {/* Lista de chats */}
-            <div className="chat-list">
-                {chats
-                    .slice()
-                    .reverse() // Invertir el orden para que el más reciente esté arriba
-                    .map((chat) => (
-                        <div
-                            key={chat.id.toString()}
-                            className="chat-item"
-                            onClick={() => handleSelectChat(chat.id)}
-                        >
-                            {chat.name}
-                        </div>
-                    ))}
-                <Button onClick={onNewChat} className="new-chat-button">
-                    New Chat
-                </Button>
-            </div>
 
             {/* Lista de mensajes */}
             <div className="messages-container">
