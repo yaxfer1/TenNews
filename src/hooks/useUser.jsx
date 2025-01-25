@@ -1,11 +1,12 @@
 import { useCallback, useContext, useState } from 'react';
-import Context from '../context/UserContext.jsx';
+import Context from '../context/UserContext.tsx';
 import loginService from '../services/login';
 import addElementService from "../services/addElement.js";
+import addChatService from "../services/addChat.js";
 import rmElementService from "../services/rmElement.js";
 
 export default function useUser() {
-    const { jwt, setJWT , elements, setElements} = useContext(Context);
+    const { jwt, setJWT , elements, setElements, chatlist, setChatlist} = useContext(Context);
     const [state, setState] = useState({ loading: false, error: false });
 
     const login = useCallback(({ username, password }) => {
@@ -33,6 +34,17 @@ export default function useUser() {
                 console.error(err);
             });
     }, [jwt, setElements]);
+
+    const addChat = useCallback((chat_name) => {
+        addElementService({ jwt, element, type })
+            .then(newElement => {
+                setChatlist(chatlist => [[...chatlist[0], newElement[0]],[...elements[1], newElement[1]]]);
+            })
+            .catch(err => {
+                console.log("error setting elements");
+                console.error(err);
+            });
+    }, [jwt, setChatlist]);
 
     const rmElement = useCallback((element, type) => {
         rmElementService({ jwt, element, type })

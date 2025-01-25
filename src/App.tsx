@@ -4,7 +4,7 @@ import { Route, Switch } from "wouter";
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
-import {UserContextProvider} from "./context/UserContext.jsx";
+import {UserContextProvider} from "./context/UserContext.tsx";
 import Login from "./pages/Login";
 import HomePage from "./pages/Home";
 

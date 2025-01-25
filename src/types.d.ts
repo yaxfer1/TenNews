@@ -50,7 +50,7 @@ export enum SectionType {
     Box3 = 'box3',
 }
 
-declare module './context/UserContext.jsx' {
+declare module './context/UserContext.tsx' {
     const value: never;
     export default value;
 }

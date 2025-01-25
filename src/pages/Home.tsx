@@ -23,7 +23,7 @@ import DropdownMenu from '../components/DropdownMenu.jsx';
 import DragAndDrop from '../components/DragAndDrop.jsx';
 import UrlInput from '../components/UrlInput.jsx';
 import ChatList from '../components/ChatList.tsx';
-
+import {addChatService} from "../services/addChat.js";
 
 function HomePage () {
 
@@ -122,8 +122,10 @@ function HomePage () {
         setHovering(false);
     };
 
-    const handleNewChat = () => {
+    const handleNewChat = async () => {
+        const chat_name =  "Chat ${chats.length + 1]}";
         const newChatId = BigInt(Math.floor(Date.now() / 1000)); // Convierte el tiempo actual en segundos a BigInt
+        const createdChat = await addChatService(,chat_name);
         addChat({ id: newChatId, name: `Chat ${chats.length + 1}`, messages: [], aimessages: [] });
         setCurrentChatId(newChatId);
     };
