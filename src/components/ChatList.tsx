@@ -1,10 +1,12 @@
 //import React from "react";
+import {useEffect} from "react";
 import {
     Button,
 } from "react-bootstrap";
 import "./styles.css";
 import {Chat} from "../types";
-import ChatBox from "./ChatBox.tsx";
+//import ChatBox from "./ChatBox.tsx";
+import {useStore} from "../hooks/useStore.ts"
 
 
 interface ChatListProps {
@@ -14,13 +16,15 @@ interface ChatListProps {
 }
 
 export const ChatList = ({
-                             chats,
+    chats,
     setCurrentChatID,
     onNewChat,
 
 }: ChatListProps) => {
-
-
+    //const { chats } = useStore();
+    useEffect(() => {
+        console.log("Chats in the component:", chats);
+    }, [chats]);
     const handleSelectChat = (chatId: bigint) => {
         console.log(chatId)
         setCurrentChatID(chatId);

@@ -39,7 +39,8 @@ export type Action =
     | { type: 'SET_EMAIL'; payload: string }
     | { type: 'SET_PASSWORD'; payload: string }
     | { type: 'SET_CURRENTCHATID'; payload: bigint}
-    | { type: 'ADD_CHAT'; payload: Chat } // Nueva acción para agregar un chat
+    | { type: 'ADD_CHAT'; payload: Chat}
+    | { type: 'SET_CHATS'; payload: Chat[]}
     | { type: 'DELETE_CHAT'; payload: string } // Nueva acción para eliminar un chat por ID
     | { type: 'UPDATE_CHAT_MESSAGES'; payload: { currentChatID: bigint; messages: string[] } } // Actualiza los mensajes de un chat específico
     | { type: 'UPDATE_CHAT_AIMESSAGES'; payload: { currentChatID: bigint; aimessages: string[] } }; // Actualiza los mensajes de IA de un chat específico
@@ -50,17 +51,12 @@ export enum SectionType {
     Box3 = 'box3',
 }
 
-declare module './context/UserContext.tsx' {
-    const value: never;
-    export default value;
-}
-
 declare module './components/DropdownMenu.jsx' {
     const value: never;
     export default value;
 }
 
-declare module './hooks/useUser.jsx' {
-    const value: never;
-    export default value;
-}
+//declare module './hooks/useUser.ts' {
+//    const value: never;
+//    export default value;
+//}

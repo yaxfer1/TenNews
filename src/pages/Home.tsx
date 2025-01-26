@@ -9,13 +9,13 @@ import "../assets/react.svg"
 
 import {useStore} from "../hooks/useStore.ts";
 import {SectionType} from "../types.d";
-
+import useUser from "../hooks/useUser.ts";
 import {useState} from "react";
 import {getContext} from "../services/getContext.ts";
 import {setContext} from "../services/setContext.ts";
 import ChatBox from "../components/ChatBox.tsx";
 import MainHeader from "../components/MainHeader.tsx";
-import {postChat} from "../services/postChat.ts";
+//import {postChat} from "../services/postChat.ts";
 import EditableTextBox from "../components/EditableTextBox.tsx";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
@@ -23,7 +23,7 @@ import DropdownMenu from '../components/DropdownMenu.jsx';
 import DragAndDrop from '../components/DragAndDrop.jsx';
 import UrlInput from '../components/UrlInput.jsx';
 import ChatList from '../components/ChatList.tsx';
-import {addChatService} from "../services/addChat.js";
+
 
 function HomePage () {
 
@@ -40,7 +40,7 @@ function HomePage () {
         editedText,
         chats,
         currentChatId,
-        addChat,
+        //addChat,
         setResult,
         changeText1,
         changeText2,
@@ -58,6 +58,7 @@ function HomePage () {
     }=useStore()
     const [hovering, setHovering] = useState(true);
     const [showAdditionalContent, setShowAdditionalContent] = useState(false);
+    const { addChatUser } = useUser();
     const handleTextChange =  async () => {
         // Aquí puedes realizar peticiones al backend con los textos y obtener el resultado
         // setResult(nuevoResultado);
@@ -123,11 +124,13 @@ function HomePage () {
     };
 
     const handleNewChat = async () => {
-        const chat_name =  "Chat ${chats.length + 1]}";
-        const newChatId = BigInt(Math.floor(Date.now() / 1000)); // Convierte el tiempo actual en segundos a BigInt
-        const createdChat = await addChatService(,chat_name);
-        addChat({ id: newChatId, name: `Chat ${chats.length + 1}`, messages: [], aimessages: [] });
-        setCurrentChatId(newChatId);
+        //const newChatId = BigInt(Math.floor(Date.now() / 1000)); // Convierte el tiempo actual en segundos a BigInt
+        const chat_name =  "CHATPRUEBA";
+        console.log(chat_name)
+        const chatsadded =await addChatUser(chat_name);
+        console.log(chatsadded)
+        //addChat({ id: newChatId, name: `Chat ${chats.length + 1}`, messages: [], aimessages: [] });
+        //setCurrentChatId(newChatId);
     };
 
     return (

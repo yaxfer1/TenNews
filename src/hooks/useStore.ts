@@ -1,4 +1,4 @@
-import { useReducer} from 'react'
+import {createContext, useContext, useReducer} from 'react'
 import {type Action, Chat, type State} from '../types'
 
 
@@ -9,20 +9,15 @@ const initialState: State = {
     loading: false,
     result: '',
     chat: false,
+    messages: [],
+    aimessages: [],
     newMessage: '',
     showModal: false,
     editedText: '',
     email: '',
     password: '',
     currentChatId: 1n,
-    chats: [
-        {
-            id: BigInt(1),
-            name: "Chat inicial", // Nombre del chat inicial
-            messages: [],// Ejemplo de mensaje inicial
-            aimessages: [] // Respuesta inicial de la IA
-        }
-    ], // Inicializar la lista de chats como un array vacío
+    chats: [], // Inicializar la lista de chats como un array vacío
 
 }
 
@@ -129,6 +124,12 @@ function reducer (state: State, action: Action) {
         return {
             ...state,
             chats: [...state.chats, action.payload],
+        };
+    }
+    if (type === 'SET_CHATS'){
+        return {
+            ...state,
+            chats: action.payload,
         };
     }
     if (type === 'DELETE_CHAT'){
@@ -245,6 +246,10 @@ export function useStore () {
         dispatch({ type: 'SET_CURRENTCHATID', payload });
     };
 
+    const setChats = (payload: Chat[]) => {
+        dispatch({ type: 'SET_CHATS', payload });
+    };
+
 // Actualizar los mensajes del usuario en un chat específico
     const updateChatMessages = (currentChatID: bigint, messages: string[]) => {
         dispatch({ type: 'UPDATE_CHAT_MESSAGES', payload: { currentChatID, messages } });
@@ -287,6 +292,7 @@ export function useStore () {
         setEditedText,
         setEmail,
         setPassword,
+        setChats,
 
     }
 }

@@ -1,6 +1,6 @@
 const ENDPOINT = 'http://127.0.0.1:5000/api';
 
-export default function addChatService({ jwt, chat_name }) {
+export default function addChatService( jwt: string, chat_name: string ) {
     console.log("chat_name: ", chat_name)
     return fetch(`${ENDPOINT}/add_chat`, {
         method: 'POST',

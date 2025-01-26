@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Dropdown, Button, Form, Modal, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import useUser from "../hooks/useUser.jsx";
+import useUser from "../hooks/useUser.ts";
 import Login from "./Login/index.jsx";
 
 

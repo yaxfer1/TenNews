@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {useLocation} from "wouter"
-import useUser from '../../hooks/useUser.jsx'
+import useUser from '../../hooks/useUser.ts'
 import { useEffect } from "react";
 import './index.css'
 

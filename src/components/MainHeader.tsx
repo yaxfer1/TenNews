@@ -4,7 +4,7 @@ import logoupv from "../assets/react.svg"
 import {useRoute, Link} from 'wouter'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
-import useUser from "../hooks/useUser.jsx"
+import useUser from "../hooks/useUser.ts"
 interface MainHeaderProps{
     boton: void
     chat: boolean
