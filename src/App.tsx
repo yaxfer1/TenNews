@@ -4,16 +4,16 @@ import { Route, Switch } from "wouter";
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
-import {UserContextProvider} from "./context/UserContext.tsx";
+//import {UserContextProvider} from "./context/UserContext.tsx";
 import Login from "./pages/Login";
 import HomePage from "./pages/Home";
-
+import {StoreProvider} from "./hooks/useStore.tsx"
 import "./App.css";
 
 
 export default function App() {
     return (
-        <UserContextProvider>
+        <StoreProvider>
             <div className="App">
                 <Suspense fallback={null}>
                     <section className="App-content">
@@ -24,6 +24,6 @@ export default function App() {
                     </section>
                 </Suspense>
             </div>
-        </UserContextProvider>
+        </StoreProvider>
     );
 }

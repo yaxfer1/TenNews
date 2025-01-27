@@ -6,7 +6,7 @@ import {
 import "./styles.css";
 import {Chat} from "../types";
 //import ChatBox from "./ChatBox.tsx";
-import {useStore} from "../hooks/useStore.ts"
+import {useStore} from "../hooks/useStore.tsx"
 
 
 interface ChatListProps {

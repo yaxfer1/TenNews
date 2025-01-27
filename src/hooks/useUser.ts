@@ -1,30 +1,21 @@
-import { useCallback, useContext, useEffect, useState } from "react";
-import Context from "../context/UserContext";
+import { useCallback, useEffect, useState } from "react";
+import { Chat } from "../types"; // Ajusta la ruta según tu estructura
 import loginService from "../services/login.js";
-//import addElementService from "../services/addElement.js";
-//import rmElementService from "../services/rmElement.js";
-import {Chat} from "../types";
 import addChatService from "../services/addChat.ts";
-import {useStore} from "../hooks/useStore.ts"
+import { useStore } from "./useStore.tsx"; // Asegúrate de importar el useStore actualizado
+
 export default function useUser() {
-    const{
+    // Usa el useStore para acceder al estado y las acciones
+    const {
+        jwt,
         chats,
         addChat,
         setChats,
-    }=useStore()
-    useEffect(() => {
-        console.log("Current chats state:", chats); // Observa si cambia después de `setChats`.
-    }, [chats]);
-    const {
-        jwt,
-        setJWT,
-        //elements,
-        //setElements,
-        //chats,
-        //setChats,
         currentChatId,
         setCurrentChatId,
-    } = useContext(Context);
+        setJWT,
+    } = useStore();
+
     const [state, setState] = useState({ loading: false, error: false });
 
     // Login
@@ -35,7 +26,7 @@ export default function useUser() {
             try {
                 const token = await loginService({ username, password });
                 window.sessionStorage.setItem("jwt", token);
-                setJWT(token);
+                setJWT(token); // Usa setJWT del useStore
                 setState({ loading: false, error: false });
             } catch (err) {
                 console.error(err);
@@ -43,59 +34,15 @@ export default function useUser() {
                 setState({ loading: false, error: true });
             }
         },
-        [setJWT]
+        [setJWT] // Dependencia de setJWT
     );
 
     // Logout
     const logout = useCallback(() => {
         window.sessionStorage.removeItem("jwt");
-        setJWT(null);
+        setJWT(null); // Usa setJWT del useStore
     }, [setJWT]);
 
-    // Add an element (generic)
- /*   const addElement = useCallback(
-        async (element: any, type: string) => {
-            try {
-                const newElement = await addElementService({ jwt, element, type });
-                setElements((prevElements) => [
-                    [...prevElements[0], newElement[0]],
-                    [...prevElements[1], newElement[1]],
-                ]);
-            } catch (err) {
-                console.error("Error adding element:", err);
-            }
-        },
-        [jwt, setElements]
-    );
-
-    // Remove an element
-    const rmElement = useCallback(
-        async (element: any, type: string) => {
-            try {
-                await rmElementService({ jwt, element, type });
-                setElements((prevElements) => {
-                    const index = prevElements[0].indexOf(element);
-                    if (index !== -1) {
-                        return [
-                            [
-                                ...prevElements[0].slice(0, index),
-                                ...prevElements[0].slice(index + 1),
-                            ],
-                            [
-                                ...prevElements[1].slice(0, index),
-                                ...prevElements[1].slice(index + 1),
-                            ],
-                        ];
-                    }
-                    return prevElements;
-                });
-            } catch (err) {
-                console.error("Error removing element:", err);
-            }
-        },
-        [jwt, setElements]
-    );
-*/
     // Load chats from the server
     const loadChats = useCallback(async () => {
         console.log("JWT:", jwt);
@@ -103,13 +50,14 @@ export default function useUser() {
 
         try {
             const response = await fetch("http://127.0.0.1:5000/api/get_chats", {
-                method: 'POST',
+                method: "POST",
                 headers: {
-                    "Authorization": jwt,
-                    "Content-Type": "application/json"
+                    Authorization: jwt,
+                    "Content-Type": "application/json",
                 },
-                body: JSON.stringify({jwt})
-            })
+                body: JSON.stringify({ jwt }),
+            });
+
             if (!response.ok) {
                 throw new Error(`Failed to fetch chats: ${response.status} ${response.statusText}`);
             }
@@ -117,7 +65,7 @@ export default function useUser() {
             const data = await response.json();
             console.log(data);
 
-// Verificar que data es del formato esperado
+            // Verificar que data es del formato esperado
             if (Array.isArray(data) && data.length === 2 && Array.isArray(data[0]) && Array.isArray(data[1])) {
                 const ids = data[0]; // Primer array: IDs
                 const names = data[1]; // Segundo array: Nombres
@@ -141,39 +89,36 @@ export default function useUser() {
                 console.error("Chats data is not in the expected format:", data);
             }
 
-
             return data;
         } catch (error) {
             console.error("Error loading chats:", error);
         }
+    }, [jwt, setChats, setCurrentChatId]);
 
-    }, [jwt]);
-
+    // Cargar chats cuando el JWT cambie
     useEffect(() => {
         loadChats();
     }, [jwt, loadChats]);
 
-
-    //const newChatId = BigInt(Math.floor(Date.now() / 1000)); // Convierte el tiempo actual en segundos a BigInt
     // Add a chat
     const addChatUser = useCallback(
         async (chat_name: string) => {
-            console.log(chat_name)
+            console.log(chat_name);
             if (!jwt) return;
 
             try {
-                console.log(chat_name)
+                console.log(chat_name);
                 const response = await addChatService(jwt, chat_name);
-                console.log("response addChatService")
-                console.log(response)
+                console.log("response addChatService");
+                console.log(response);
                 const newChat = await response.json();
-                console.log(newChat)
-                addChat(newChat);
+                console.log(newChat);
+                addChat(newChat); // Usa addChat del useStore
             } catch (error) {
                 console.error("Error adding chat:", error);
             }
         },
-        [jwt]
+        [jwt, addChat]
     );
 
     // Delete a chat
@@ -189,7 +134,7 @@ export default function useUser() {
                     },
                 });
 
-                setChats((prevChats) => prevChats.filter((chat) => chat.id !== chatId));
+                //setChats((prevChats) => prevChats.filter((chat) => chat.id !== chatId)); // Usa setChats del useStore
             } catch (error) {
                 console.error("Error deleting chat:", error);
             }
@@ -228,10 +173,6 @@ export default function useUser() {
         isLogged: Boolean(jwt),
         isLoginLoading: state.loading,
         hasLoginError: state.error,
-        //addElement,
-        //rmElement,
-        //elements,
-        //chats,
         currentChatId,
         addChatUser,
         deleteChat,

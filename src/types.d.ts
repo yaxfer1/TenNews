@@ -21,7 +21,7 @@ export interface State {
     password: string;
     currentChatId: bigint;
     chats: Chat[]; // Nueva propiedad para almacenar todos los chats
-
+    jwt: string;
 }
 
 export type Action =
@@ -41,6 +41,7 @@ export type Action =
     | { type: 'SET_CURRENTCHATID'; payload: bigint}
     | { type: 'ADD_CHAT'; payload: Chat}
     | { type: 'SET_CHATS'; payload: Chat[]}
+    | { type: 'SET_JWT'; payload: string}
     | { type: 'DELETE_CHAT'; payload: string } // Nueva acción para eliminar un chat por ID
     | { type: 'UPDATE_CHAT_MESSAGES'; payload: { currentChatID: bigint; messages: string[] } } // Actualiza los mensajes de un chat específico
     | { type: 'UPDATE_CHAT_AIMESSAGES'; payload: { currentChatID: bigint; aimessages: string[] } }; // Actualiza los mensajes de IA de un chat específico

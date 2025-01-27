@@ -7,7 +7,7 @@ import {Container, Row, Col, Button, Stack} from 'react-bootstrap'
 import { ClipboardIcon} from '../components/Icons.tsx'
 import "../assets/react.svg"
 
-import {useStore} from "../hooks/useStore.ts";
+import {useStore} from "../hooks/useStore.tsx";
 import {SectionType} from "../types.d";
 import useUser from "../hooks/useUser.ts";
 import {useState} from "react";
